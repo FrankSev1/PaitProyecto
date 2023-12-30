@@ -77,8 +77,17 @@ class ClienteController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cliente $cliente)
+    public function destroy($id)
     {
-        //
+        $cliente = Cliente::find($id);
+
+        if(is_null($cliente)){
+
+            return response()->json('Cliente no encontrado, No se pudo hacer la operacion',404);
+
+        }
+        
+        $cliente->delete();
+        return response()->noContent();
     }
 }
